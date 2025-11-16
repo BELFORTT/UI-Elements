@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Agendamento de Serviços</title>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <div class="text-xl font-bold text-blue-600">LogoAqui</div>
+      <nav class="space-x-6 hidden md:block">
+        <a href="#" class="hover:text-blue-600">Serviços</a>
+        <a href="#" class="hover:text-blue-600">Profissionais</a>
+        <a href="#" class="hover:text-blue-600">Minhas Reservas</a>
+        <a href="#" class="hover:text-blue-600">Perfil</a>
+      </nav>
+      <button class="md:hidden">☰</button>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto mt-4 px-4 text-sm text-gray-500">
+    <p class="bread-crums"><a href="#">Home</a> / <a href="#">Agendamento</a></p>
+  </div>
+
+  <main class="max-w-6xl mx-auto p-4 mt-4">
+    <div class="bg-white shadow rounded-xl p-6 space-y-6">
+      <h2 class="text-2xl font-semibold mb-2">Agendar Serviço</h2>
+      <div class="flex items-center gap-2 text-sm text-gray-600">
+        <span class="font-medium">Precisa de ajuda?</span>
+        <span class="w-5 h-5 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full cursor-pointer">?</span>
+      </div>
+      <form class="space-y-4">
+        <div>
+          <label class="block font-medium mb-1">Selecione o Serviço</label>
+          <select class="w-full border rounded-lg p-2">
+            <option>Corte de Cabelo</option>
+            <option>Barba</option>
+            <option>Combo Corte + Barba</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-1">Data</label>
+          <input type="date" class="w-full border rounded-lg p-2" />
+        </div>
+        
+        <div>
+          <label class="block font-medium mb-1">Profissional</label>
+          <select class="w-full border rounded-lg p-2">
+            <option>João</option>
+            <option>Marcos</option>
+            <option>Lucas</option>
+          </select>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg border">
+          <p><strong>Tempo estimado:</strong> 45 minutos</p>
+          <p><strong>Preço:</strong> R$ 40,00</p>
+          <p class="text-green-600 font-semibold">Horário disponível ✓</p>
+        </div>
+
+        <button class="confirm w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+          Confirmar Agendamento
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-white shadow mt-10 p-4 text-center text-sm text-gray-600">
+    &copy; 2025 CortaNaFrente. Todos os direitos reservados.
+  </footer>
+  <script>
+    // tem que usar js para elementos de saida
+    // minhas ideiais sao: toast, alert e badge
+  </script> 
+</body>
+</html>
