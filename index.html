@@ -4,76 +4,240 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Agendamento de Serviços</title>
 </head>
 <body class="bg-gray-100 text-gray-800">
   <header class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-      <div class="text-xl font-bold text-blue-600">LogoAqui</div>
-      <nav class="space-x-6 hidden md:block">
-        <a href="#" class="hover:text-blue-600">Serviços</a>
-        <a href="#" class="hover:text-blue-600">Profissionais</a>
-        <a href="#" class="hover:text-blue-600">Minhas Reservas</a>
-        <a href="#" class="hover:text-blue-600">Perfil</a>
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">C</div>
+        <span class="text-xl font-bold text-blue-600"><a href="#">CortaNaFrente</a></span>
+      </div>
+    
+      <nav class="space-x-6 hidden md:flex">
+        <a href="#" class="hover:text-blue-600 transition font-semibold text-blue-600">Serviços</a>
+        <a href="#" class="hover:text-blue-600 transition">Profissionais</a>
+        <a href="#" class="hover:text-blue-600 transition">Minhas Reservas</a>
+        <a href="#" class="hover:text-blue-600 transition">Perfil</a>
       </nav>
-      <button class="md:hidden">☰</button>
+      
+      <button class="md:hidden text-2xl hover:text-blue-600 transition">
+        ☰
+      </button>
     </div>
   </header>
 
-  <div class="max-w-6xl mx-auto mt-4 px-4 text-sm text-gray-500">
-    <p class="bread-crums"><a href="#">Home</a> / <a href="#">Agendamento</a></p>
+  <div class="max-w-6xl mx-auto mt-4 px-4">
+    <p class="text-sm text-gray-500 flex items-center gap-2">
+      <a href="#" class="hover:text-blue-600 transition">Home</a>
+      <span>›</span>
+      <a href="#" class="hover:text-blue-600 transition">Serviços</a>
+      <span>›</span>
+      <span class="text-gray-700 font-medium">Agendamento</span>
+    </p>
   </div>
 
-  <main class="max-w-6xl mx-auto p-4 mt-4">
-    <div class="bg-white shadow rounded-xl p-6 space-y-6">
-      <h2 class="text-2xl font-semibold mb-2">Agendar Serviço</h2>
-      <div class="flex items-center gap-2 text-sm text-gray-600">
-        <span class="font-medium">Precisa de ajuda?</span>
-        <span class="w-5 h-5 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full cursor-pointer">?</span>
+  <main class="max-w-6xl mx-auto p-4 mt-4 mb-10">
+
+    <div id="infoAlert" class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg mb-4 flex items-start gap-3 slide-up">
+      <span class="text-blue-500 text-xl"><i class="fa-solid fa-circle-info text-blue-500"></i></span>
+      <div class="flex-1">
+        <p class="font-medium text-blue-800">Dica de agendamento</p>
+        <p class="text-sm text-blue-700">Agende com antecedência para garantir seu horário preferido. Cancelamentos podem ser feitos até 2h antes.</p>
       </div>
-      <form class="space-y-4">
+      <button onclick="document.getElementById('infoAlert').remove()" class="text-blue-500 hover:text-blue-700 font-bold">×</button>
+    </div>
+
+    <div class="bg-white shadow-lg rounded-xl p-6 space-y-6">
+
+      <div class="flex items-center justify-between">
         <div>
-          <label class="block font-medium mb-1">Selecione o Serviço</label>
-          <select class="w-full border rounded-lg p-2">
-            <option>Corte de Cabelo</option>
-            <option>Barba</option>
-            <option>Combo Corte + Barba</option>
+          <h2 class="text-2xl font-semibold text-gray-800">Agendar Serviço</h2>
+          <p class="text-sm text-gray-500 mt-1">Preencha as informações abaixo para confirmar</p>
+        </div>
+
+        <button id="helpButton" class="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition font-bold text-lg">
+          ?
+        </button>
+      </div>
+
+      <form id="agendamentoForm" class="space-y-5">
+        
+        <div>
+          <label class="block font-medium mb-2 text-gray-700">Selecione o Serviço <span class="text-red-700">*</span></label>
+          <select id="servicoSelect" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            <option value="">Escolha um serviço...</option>
+            <option value="corte" data-preco="40" data-tempo="45">Corte de Cabelo - R$ 40,00</option>
+            <option value="barba" data-preco="25" data-tempo="30">Barba - R$ 25,00</option>
+            <option value="combo" data-preco="60" data-tempo="60">Combo Corte + Barba - R$ 60,00</option>
+            <option value="coloracao" data-preco="80" data-tempo="90">Coloração - R$ 80,00</option>
           </select>
         </div>
 
         <div>
-          <label class="block font-medium mb-1">Data</label>
-          <input type="date" class="w-full border rounded-lg p-2" />
+          <label class="block font-medium mb-2 text-gray-700">Data do Agendamento <span class="text-red-700">*</span></label>
+          <input type="date" id="dataInput" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
+          <p class="text-xs text-gray-500 mt-1">Selecione uma data a partir de hoje</p>
         </div>
         
         <div>
-          <label class="block font-medium mb-1">Profissional</label>
-          <select class="w-full border rounded-lg p-2">
-            <option>João</option>
-            <option>Marcos</option>
-            <option>Lucas</option>
+          <label class="block font-medium mb-2 text-gray-700">Profissional <span class="text-red-700">*</span></label>
+          <select id="profissionalSelect" required class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            <option value="">Escolha um profissional...</option>
+            <option value="joao">João Silva - Especialista em cortes modernos</option>
+            <option value="marcos">Marcos Santos - Expert em barbas</option>
+            <option value="lucas">Lucas Oliveira - Coloração e tratamentos</option>
+            <option value="qualquer">Qualquer profissional disponível</option>
           </select>
         </div>
 
-        <div class="bg-gray-50 p-4 rounded-lg border">
-          <p><strong>Tempo estimado:</strong> 45 minutos</p>
-          <p><strong>Preço:</strong> R$ 40,00</p>
-          <p class="text-green-600 font-semibold">Horário disponível ✓</p>
-        </div>
-
-        <button class="confirm w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-          Confirmar Agendamento
+        <button type="submit" id="confirmarButton" disabled class="w-full bg-gray-300 text-gray-500 py-3 rounded-lg font-semibold text-lg cursor-not-allowed transition">
+          Selecione todos os campos
         </button>
       </form>
     </div>
+
+    <div class="mt-6 grid md:grid-cols-2 gap-4">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h3 class="font-semibold mb-2 text-gray-800"><i class="fa-solid fa-alarm-clock"></i> Política de Cancelamento</h3>
+        <p class="text-sm text-gray-600">Cancelamentos gratuitos até 2 horas antes do horário agendado.</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h3 class="font-semibold mb-2 text-gray-800"><i class="fa-solid fa-credit-card"></i> Formas de Pagamento</h3>
+        <p class="text-sm text-gray-600">Aceitamos dinheiro, cartão de crédito/débito e PIX.</p>
+      </div>
+    </div>
   </main>
 
-  <footer class="bg-white shadow mt-10 p-4 text-center text-sm text-gray-600">
-    &copy; 2025 CortaNaFrente. Todos os direitos reservados.
+  <footer class="bg-white shadow mt-auto border-t">
+    <div class="max-w-6xl mx-auto p-6">
+      <div class="grid md:grid-cols-3 gap-6 mb-4">
+        <div>
+          <h4 class="font-semibold mb-2 text-gray-800">Sobre Nós</h4>
+          <p class="text-sm text-gray-600">Agendamento fácil e rápido para serviços de beleza e estética.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2 text-gray-800">Contato</h4>
+          <p class="text-sm text-gray-600"><i class="fa-solid fa-phone"></i> (XX) XXXXX-XXXX</p>
+          <p class="text-sm text-gray-600"><i class="fa-solid fa-envelope"></i> contato@cortanafrente.com</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2 text-gray-800">Horário de Funcionamento</h4>
+          <p class="text-sm text-gray-600">Ter-Sáb: 9h às 19h</p>
+          <p class="text-sm text-gray-600">Domingo: 9h às 17h</p>
+        </div>
+      </div>
+      <div class="text-center text-sm text-gray-500 pt-4 border-t">
+        &copy; 2025 CortaNaFrente. Todos os direitos reservados.
+      </div>
+    </div>
   </footer>
+
+  <div id="helpModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-gray-800"><i class="fa-solid fa-question text-red-700"></i> Central de Ajuda</h3>
+        <button id="closeHelp" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+      </div>
+      <div class="space-y-4 text-sm text-gray-600">
+        <div>
+          <p class="font-semibold text-gray-800 mb-1">Como agendar?</p>
+          <p>1. Selecione o serviço desejado<br>2. Escolha a data<br>3. Selecione o profissional<br>4. Clique em um horário disponível<br>5. Confirme o agendamento</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-800 mb-1">Posso cancelar?</p>
+          <p>Sim! Cancelamentos são gratuitos até 2 horas antes do horário agendado.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-800 mb-1">Preciso de conta?</p>
+          <p>Não é necessário criar conta para agendar. Basta fornecer seu contato na confirmação.</p>
+        </div>
+      </div>
+      <button id="closeHelpButton" class="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        Entendi
+      </button>
+    </div>
+  </div>
+
+   <div id="toast" class="hidden fixed top-20 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg toast z-50 max-w-sm">
+    <div class="flex items-start gap-3">
+      <span class="text-2xl"><i class="fa-solid fa-check"></i></span>
+      <div>
+        <p class="font-bold">Agendamento confirmado!</p>
+        <p class="text-sm opacity-90">Você receberá uma confirmação por e-mail.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // tem que usar js para elementos de saida
-    // minhas ideiais sao: toast, alert e badge
+    const helpButton = document.getElementById('helpButton');
+    const helpModal = document.getElementById('helpModal');
+    const closeHelp = document.getElementById('closeHelp');
+    const closeHelpButton = document.getElementById('closeHelpButton');
+
+    const servico = document.getElementById('servicoSelect');
+    const data = document.getElementById('dataInput');
+    const profissional = document.getElementById('profissionalSelect');
+
+    helpButton.addEventListener('click', () => {
+      helpModal.classList.remove('hidden');
+    });
+
+    [closeHelp, closeHelpButton].forEach(button => {
+      button.addEventListener('click', () => {
+        helpModal.classList.add('hidden');
+      });
+    });
+
+    helpModal.addEventListener('click', (e) => {
+      if (e.target === helpModal) helpModal.classList.add('hidden');
+    });
+
+    const dataInput = document.getElementById('dataInput');
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.min = hoje;
+
+    const enableConfirmarButton = () => {
+      const confirmarButton = document.getElementById('confirmarButton');
+      confirmarButton.disabled = false;
+      confirmarButton.className = 'w-full bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition cursor-pointer';
+      confirmarButton.textContent = 'Confirmar Agendamento';
+    }
+
+    servico.addEventListener('change', function() {
+      if (this.value && data.value && profissional.value) {
+        enableConfirmarButton();
+      }
+    });
+
+    data.addEventListener('change', function() {
+      if (servico.value && this.value && profissional.value) {
+        enableConfirmarButton();
+      }
+    });
+
+    profissional.addEventListener('change', function() {
+      if (servico.value && data.value && this.value) {
+        enableConfirmarButton();
+      }
+    });
+      
+    document.getElementById('agendamentoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+      const toast = document.getElementById('toast');
+      toast.classList.remove('hidden');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        this.reset();
+        selectedHorario = null;
+        document.getElementById('confirmarButton').disabled = true;
+        document.getElementById('confirmarButton').className = 'w-full bg-gray-300 text-gray-500 py-3 rounded-lg font-semibold text-lg cursor-not-allowed transition';
+        document.getElementById('confirmarButton').textContent = 'Selecione todos os campos';
+      }, 3000);
+    });
   </script> 
 </body>
 </html>
